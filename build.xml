@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="assignment_3" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.protobuf-java-3.4.1.classpath">
+    <pathelement location="${basedir}/libs/protobuf-java-3.4.1.jar"/>
+  </path>
+  
+  <path id="library.r_user_library.classpath"/>
+  
+  
+  <!-- Global Libraries -->
+  
+  <path id="library.r_skeletons.classpath">
+    <pathelement location="/Users/priyankadesai/Library/Caches/IdeaIC2017.2/r_skeletons/1481726564"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Assignment 3 -->
+  
+  <dirname property="module.assignment_3.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.assignment_3" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="assignment_3.output.dir" value="${module.assignment_3.basedir}/out/production/Assignment 3"/>
+  <property name="assignment_3.testoutput.dir" value="${module.assignment_3.basedir}/out/test/Assignment 3"/>
+  
+  <path id="assignment_3.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="assignment_3.module.production.classpath">
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+    <path refid="library.protobuf-java-3.4.1.classpath"/>
+  </path>
+  
+  <path id="assignment_3.runtime.production.module.classpath">
+    <pathelement location="${assignment_3.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+    <path refid="library.protobuf-java-3.4.1.classpath"/>
+  </path>
+  
+  <path id="assignment_3.module.classpath">
+    <pathelement location="${assignment_3.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+    <path refid="library.protobuf-java-3.4.1.classpath"/>
+  </path>
+  
+  <path id="assignment_3.runtime.module.classpath">
+    <pathelement location="${assignment_3.testoutput.dir}"/>
+    <pathelement location="${assignment_3.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+    <path refid="library.protobuf-java-3.4.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.assignment_3">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.assignment_3">
+    <patternset refid="excluded.from.module.assignment_3"/>
+  </patternset>
+  
+  <path id="assignment_3.module.sourcepath">
+    <dirset dir="${module.assignment_3.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.assignment_3" depends="compile.module.assignment_3.production,compile.module.assignment_3.tests" description="Compile module Assignment 3"/>
+  
+  <target name="compile.module.assignment_3.production" description="Compile module Assignment 3; production classes">
+    <mkdir dir="${assignment_3.output.dir}"/>
+    <javac destdir="${assignment_3.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.assignment_3}"/>
+      <bootclasspath refid="assignment_3.module.bootclasspath"/>
+      <classpath refid="assignment_3.module.production.classpath"/>
+      <src refid="assignment_3.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.assignment_3"/>
+    </javac>
+    
+    <copy todir="${assignment_3.output.dir}">
+      <fileset dir="${module.assignment_3.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.assignment_3.tests" depends="compile.module.assignment_3.production" description="compile module Assignment 3; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.assignment_3" description="cleanup module">
+    <delete dir="${assignment_3.output.dir}"/>
+    <delete dir="${assignment_3.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.assignment_3" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.assignment_3" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.pdesai-p3:jar" value="${basedir}/out/artifacts/pdesai_p3_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.Assignment 3.jar" value="${artifacts.temp.dir}/Assignment 3.jar"/>
+  </target>
+  
+  <target name="artifact.pdesai-p3:jar" depends="init.artifacts, compile.module.assignment_3" description="Build &#39;pdesai-p3:jar&#39; artifact">
+    <property name="artifact.temp.output.pdesai-p3:jar" value="${artifacts.temp.dir}/pdesai_p3_jar"/>
+    <mkdir dir="${artifact.temp.output.pdesai-p3:jar}"/>
+    <jar destfile="${temp.jar.path.Assignment 3.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${assignment_3.output.dir}"/>
+      <zipfileset dir="${basedir}/../../../../../Library/Caches/IdeaIC2017.2/r_skeletons/1481726564"/>
+      <zipfileset src="${basedir}/libs/protobuf-java-3.4.1.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.Assignment 3.jar}" tofile="${artifact.temp.output.pdesai-p3:jar}/Assignment 3.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.pdesai-p3:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.pdesai-p3:jar}"/>
+    <copy todir="${artifact.output.pdesai-p3:jar}">
+      <fileset dir="${artifact.temp.output.pdesai-p3:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

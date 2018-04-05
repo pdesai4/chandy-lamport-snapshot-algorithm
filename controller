@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+make
+
+java -cp out/artifacts/pdesai_p3_jar/Assignment\ 3.jar distributed_banking.Controller $1 $2
